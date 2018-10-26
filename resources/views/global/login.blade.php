@@ -31,26 +31,46 @@
 				</h3>
               </div>
               <h4>Hey There! Let's get started.</h4>
-              <form class="pt-3">
+              
+              {!! Form::open(array('route' => 'global.login-check', 'files' => false, 'method' => 'POST', 'class' => 'pt-3')) !!}
+
+              @if(Session::has('flash_message'))
+                  <p class="login-flash-text text-danger">
+                      {{ Session::get('flash_message') }}
+                  </p>
+              @endif
+
+              @if($errors->any())
+                <div class="alert alert-danger">
+                    <a href="#" class="close" data-dismiss="alert">&times;</a>
+                    <ul class="unstyled">
+                      @foreach( $errors->all() as $error)
+                        <li>{{ $error }}</li>
+                      @endforeach
+                    </ul>
+                </div>
+              @endif
+
                 <div class="form-group">
-                  <input type="email" class="form-control form-control-lg" id="exampleInputEmail1" placeholder="Email or Username">
+                  <input type="email" class="form-control form-control-lg" id="email" name="email" placeholder="Email or Username" required="required">
                 </div>
                 <div class="form-group">
-                  <input type="password" class="form-control form-control-lg" id="exampleInputPassword1" placeholder="Password">
+                  <input type="password" class="form-control form-control-lg" id="password" name="password" placeholder="Password" required="required">
                 </div>
                 <div class="mt-3">
-                  <a class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn" href="index.html">SIGN IN</a>
+                  <input type="submit" class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn" value="SIGN IN"/>
                 </div>
                 <div class="my-2 d-flex justify-content-between align-items-center">
                   <div class="form-check">
                     <label class="form-check-label text-muted">
-                      <input type="checkbox" class="form-check-input">
+                      <input type="checkbox" class="form-check-input" name="remember_me">
                       Keep me signed in
                     </label>
                   </div>
                   <a href="#" class="auth-link text-black">Forgot password?</a>
                 </div>
-              </form>
+
+              {!! Form::close() !!}
 			  
 			  <div class="login-footer-text">
 				<span> Hand-crafted & made with <i class="mdi mdi-heart text-danger"></i> by <a href="https://www.kadirrazu.info/" target="_blank">Kadir</a>

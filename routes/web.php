@@ -12,3 +12,27 @@
 */
 
 Route::get('/', 'GlobalLoginController@globalLogin');
+
+Route::get('logout', 'GlobalLoginController@globalLogout');
+
+Route::post('global-login', [
+	    'as' => 'global.login-check', 'uses' => 'GlobalLoginController@globalLoginCheck'
+	]);
+
+//Subsystems Routes
+Route::group(['middleware' => ['auth']], function () {
+    
+    Route::get('subsystem-selector', 'SubsystemController@showSubsystems');
+
+});
+
+//Expense Tracker Routes
+Route::group(['middleware' => ['auth']], function () {
+	Route::namespace('ExpenseTracker')->group(function () {
+	    Route::prefix('et')->group(function () {
+
+		    Route::get('dashboard', 'PagesController@dashboard');
+
+		}); //Group = prefix 'et'
+	}); //Group = Namespace 'ExpenseTracker'
+}); //Group = middleware 'auth'
