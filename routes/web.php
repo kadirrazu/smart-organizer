@@ -28,6 +28,8 @@ Route::group(['middleware' => ['auth']], function () {
 
 //Expense Tracker Routes
 Route::group(['middleware' => ['auth']], function () {
+	
+	//EexpeseTracker Routes
 	Route::namespace('ExpenseTracker')->group(function () {
 	    Route::prefix('et')->group(function () {
 
@@ -35,4 +37,16 @@ Route::group(['middleware' => ['auth']], function () {
 
 		}); //Group = prefix 'et'
 	}); //Group = Namespace 'ExpenseTracker'
+
+	//HealthLogs Routes
+	Route::namespace('HealthLogs')->group(function () {
+	    Route::prefix('hl')->group(function () {
+
+		    Route::get('dashboard', 'PagesController@dashboard');
+
+		    Route::resource('logs', "LoggingController");
+
+		}); //Group = prefix 'hl'
+	}); //Group = Namespace 'HealthLogs'
+
 }); //Group = middleware 'auth'

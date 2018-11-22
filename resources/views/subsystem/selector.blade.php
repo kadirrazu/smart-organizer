@@ -38,15 +38,15 @@
                 </div>
 				
 				<div class="mt-3">
-                  <a class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn" href="index.html">Health Logs</a>
+                  <a class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn" href="{!! url('hl/dashboard') !!}">Health Logs</a>
                 </div>
 				
 				<div class="mt-3">
-                  <a class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn" href="index.html">Phone Book</a>
+                  <a class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn" href="{!! url('pb/dashboard') !!}">Phone Book</a>
                 </div>
 				
 				<div class="mt-3">
-                  <a class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn" href="index.html">Library Manager</a>
+                  <a class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn" href="{!! url('lm/dashboard') !!}">Library Manager</a>
                 </div>
 				
 				<div class="my-2 text-center mt-20">

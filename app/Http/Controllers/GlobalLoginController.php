@@ -35,6 +35,11 @@ class GlobalLoginController extends Controller
     {
 
 
+        $request->validate([
+            'email' => ['required'],
+            'password' => ['required'],
+        ]);
+
         $credentials = array(
             'email' => $request->input('email'), 
             'password' => $request->input('password')
