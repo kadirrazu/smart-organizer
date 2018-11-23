@@ -20972,3 +20972,33 @@ dl li {
 .mb-btn-set{
   margin-bottom: 20px;
 }
+
+.dataTables_length select{
+  padding-right: 25px !important;
+}
+
+button.btn-delete-record{
+  background: none;
+  color: red;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+}
+
+.tbl-action-btn{
+  display: inline-block;
+  border: 1px solid #ccc;
+  padding: 8px;
+}
+
+.toggle-block{
+  -webkit-transition: all 2s ease-out;
+  -moz-transition: all 2s ease-out;
+  -o-transition: all 2s ease-out;
+  transition: all 2s ease-out;
+}
+
+.hidden-block{
+  display: none !important;
+  transition: width 2s;
+}

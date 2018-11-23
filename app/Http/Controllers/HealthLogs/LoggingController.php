@@ -5,6 +5,8 @@ namespace App\Http\Controllers\HealthLogs;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+use App\HealthLogs;
+
 class LoggingController extends Controller
 {
     /**
@@ -14,7 +16,10 @@ class LoggingController extends Controller
      */
     public function index()
     {
-        return view('health-logs.index');
+        
+        $all_logs = HealthLogs::all();
+
+        return view('health-logs.index', compact('all_logs'));
     }
 
     /**
@@ -24,7 +29,7 @@ class LoggingController extends Controller
      */
     public function create()
     {
-        //
+        return view('health-logs.create');
     }
 
     /**
@@ -46,7 +51,7 @@ class LoggingController extends Controller
      */
     public function show($id)
     {
-        //
+        dd("Hellow from view single record!");
     }
 
     /**
@@ -80,6 +85,6 @@ class LoggingController extends Controller
      */
     public function destroy($id)
     {
-        //
+        dd("Hellow from delete a record!");
     }
 }

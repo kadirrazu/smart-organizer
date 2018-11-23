@@ -32,6 +32,11 @@
         			Manage Logs
         		</a>
         	</li>
+          <li class="nav-item"> 
+            <a class="nav-link" href="{!! url('hl/logs/create') !!}">
+              Create a New Log
+            </a>
+          </li>
         </ul>
       </div>
     </li>
