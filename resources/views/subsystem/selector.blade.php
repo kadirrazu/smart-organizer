@@ -37,19 +37,23 @@
                   <a class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn" href="{!! url('et/dashboard') !!}">Expense Tracker</a>
                 </div>
 				
-				<div class="mt-3">
+				        <div class="mt-3">
                   <a class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn" href="{!! url('hl/dashboard') !!}">Health Logs</a>
                 </div>
 				
-				<div class="mt-3">
+				        <div class="mt-3">
                   <a class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn" href="{!! url('pb/dashboard') !!}">Phone Book</a>
                 </div>
 				
-				<div class="mt-3">
+				        <div class="mt-3">
                   <a class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn" href="{!! url('lm/dashboard') !!}">Library Manager</a>
                 </div>
+
+                <div class="mt-3">
+                  <a class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn" href="{!! url('mm/dashboard') !!}">Movie Manager</a>
+                </div>
 				
-				<div class="my-2 text-center mt-20">
+				        <div class="my-2 text-center mt-20">
                   <a href="{!! url('logout') !!}" class="btn btn-sm auth-link text-black">Logout</a>
                 </div>
 			  

@@ -21002,3 +21002,7 @@ button.btn-delete-record{
   display: none !important;
   transition: width 2s;
 }
+
+.card-description.card-description-custom{
+  margin: 1rem 0;
+}

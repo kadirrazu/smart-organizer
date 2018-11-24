@@ -13,7 +13,8 @@ date_default_timezone_set('Asia/Dhaka');
 |
 */
 
-Route::get('/', 'GlobalLoginController@globalLogin');
+//Route::get('/', 'GlobalLoginController@globalLogin');
+Route::get('/', [ 'as' => 'login', 'uses' => 'GlobalLoginController@globalLogin']);
 
 Route::get('logout', 'GlobalLoginController@globalLogout');
 
@@ -30,6 +31,7 @@ Route::group(['middleware' => ['auth']], function () {
 
 //Expense Tracker Routes
 Route::group(['middleware' => ['auth']], function () {
+
 	
 	//EexpeseTracker Routes
 	Route::namespace('ExpenseTracker')->group(function () {
