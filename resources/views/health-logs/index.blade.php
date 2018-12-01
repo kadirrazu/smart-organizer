@@ -40,7 +40,16 @@
       <div class="col-md-12 grid-margin stretch-card">
         <div class="card">
           <div class="card-body">
+
+            @include('global.flashes')
+
             <div class="clearfix">
+
+              @foreach($all_logs as $log)
+
+                {!! $log->id !!}
+
+              @endforeach
               
               @if($all_logs->count() > 0)
 
@@ -143,7 +152,9 @@
 <script>
   jQuery(document).ready(function($) {
 
-    $('#dt-table').DataTable();
+    $('#dt-table').DataTable({
+      ordering:  false
+    });
 
     $('.btn-delete-record').on('click', function(e){
       var decision = confirm('Are you sure about deleting this record?');

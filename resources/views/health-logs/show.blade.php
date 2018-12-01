@@ -1,11 +1,5 @@
 @extends('health-logs.layouts.master')
 
-@section('style')
-
-<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
-
-@stop
-
 @section('content')
 
   <div class="content-wrapper">
@@ -14,12 +8,12 @@
         <span class="page-title-icon bg-gradient-primary text-white mr-2">
           <i class="mdi mdi-library-plus"></i>                 
         </span>
-        Create a New Log
+        View a Single Log
       </h3>
       <nav aria-label="breadcrumb">
         <ul class="breadcrumb">
           <li class="breadcrumb-item active" aria-current="page">
-            <span></span>Create a New Health Record Entry
+            <span></span>View a single log row from Database.
             <i class="mdi mdi-alert-circle-outline icon-sm text-primary align-middle"></i>
           </li>
         </ul>
@@ -32,13 +26,8 @@
           <div class="card-body">
             <div class="clearfix">
 
-                @include('global.errors')
                 @include('global.flashes')
-              
-                <form class="form-sample" method="POST" action="{{ url('hl/logs') }}">
-                 
-                  @csrf
-
+                
                   <p class="card-description card-description-custom">
                     Record Date and Time
                   </p>
@@ -436,13 +425,6 @@
                   </div>
                   <!-- /Toogle Area -->
 
-                  <hr>
-
-                  <button type="submit" class="btn btn-gradient-primary mr-2">Submit</button>
-                  <button type="reset" class="btn btn-light">Cancel</button>
-
-                </form>
-
             </div>
         </div>
       </div>
@@ -450,34 +432,4 @@
   </div>
   <!-- content-wrapper ends -->
   
-@stop
-
-@section('script')
-
-<script>
-  jQuery(document).ready(function($) {
-
-
-    //Toggle inner block by toggling a checkbox
-    $('.toggle-div input[type="checkbox"]').on('click', function(e){
-
-      if(this.checked){
-        $(this).closest('.toggle-div').children('.toogle-block').removeClass('hidden-block');
-      }
-      else{
-        $(this).closest('.toggle-div').children('.toogle-block').addClass('hidden-block');
-      }
-
-    });
-
-    //Check if anyone is already checked. Then show the respective inner block.
-    var $allCheckbox = $('.toggle-div input[type="checkbox"]:checked');
-
-    $allCheckbox.each(function(e){      
-        $(this).closest('.toggle-div').children('.toogle-block').removeClass('hidden-block');
-    });
-
-  });
-</script>
-
 @stop
