@@ -27,30 +27,65 @@
             <div class="clearfix">
 
                 @include('global.flashes')
-                
-                  <p class="card-description card-description-custom">
-                    Record Date and Time
-                  </p>
 
-                  <!-- Row -->
-                  <div class="row">
-                    <div class="col-md-6">
-                      <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Date</label>
-                        <div class="col-sm-9">
-                          <input type="text" class="form-control" name="log_date" value="{{ old('log_date') != '' ? old('log_date') : date('Y-m-d') }}"/>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-6">
-                      <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Time</label>
-                        <div class="col-sm-9">
-                          <input type="text" class="form-control" name="log_time" value="{{ old('log_time') != '' ? old('log_time') : date('H:i:s') }}"/>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                  <table class="table table-bordered">
+                    <thead class="thead-light">
+                      <tr>
+                        <th scope="col" colspan="4">Date and Time</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td scope="row">Date</td>
+                        <td>{{ date_format( new DateTime($log->log_date), "d/m/Y") }}</td>
+                        <td>Time</td>
+                        <td>{{ date_format( new DateTime($log->log_time), "h:i:s A") }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                @if( $log->bp == 1 )
+                    
+                  <table class="table table-bordered">
+                    <thead class="thead-light">
+                      <tr>
+                        <th scope="col" colspan="4">Blood Pressure</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td scope="col">Measurement</td>
+                        <td colspan="3">{{ $log->sys ." / ". $log->dia }}</td>
+                      </tr>
+                      <tr>
+                        <td scope="row">Systolic</td>
+                        <td>{{ $log->sys }}</td>
+                        <td>Diastolic</td>
+                        <td>{{ $log->dia }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                @endif
+
+                @if( $log->hr == 1 )
+                    
+                  <table class="table table-bordered">
+                    <thead class="thead-light">
+                      <tr>
+                        <th scope="col" colspan="2">Heart Rate</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td scope="col">Heart Rate / Pulse</td>
+                        <td scope="col" colspan="2">{{ $log->h_rate }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                @endif
+                  
 
                   <!-- Toogle Area : Blood Pressure -->
                   <div class="toggle-div">
