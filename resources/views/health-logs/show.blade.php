@@ -6,7 +6,7 @@
     <div class="page-header">
       <h3 class="page-title">
         <span class="page-title-icon bg-gradient-primary text-white mr-2">
-          <i class="mdi mdi-library-plus"></i>                 
+          <i class="mdi mdi-chart-gantt"></i>                 
         </span>
         View a Single Log
       </h3>
@@ -131,15 +131,15 @@
                     <tbody>
                       <tr>
                         <td scope="row">Cholesterol (Total)</td>
-                        <td>{{ $lp_values[0] }}</td>
+                        <td>{{ isset($lp_values[0]) ? $lp_values[0] : '-' }}</td>
                         <td>HDL - Cholesterol</td>
-                        <td>{{ $lp_values[1] }}</td>
+                        <td>{{ isset($lp_values[1]) ? $lp_values[1] : '-' }}</td>
                       </tr>
                       <tr>
                         <td scope="row">LDL - Cholesterol</td>
-                        <td>{{ $lp_values[2] }}</td>
+                        <td>{{ isset($lp_values[2]) ? $lp_values[2] : '-' }}</td>
                         <td>Triglycerides</td>
-                        <td>{{ $lp_values[3] }}</td>
+                        <td>{{ isset($lp_values[3]) ? $lp_values[3] : '-' }}</td>
                       </tr>
                     </tbody>
                   </table>
@@ -200,6 +200,8 @@
                   @php
 
                     $cbc_values = explode("|", $log->cbc_details);
+                    $counter = 0;
+                    $totalValues = count($cbc_values);
 
                   @endphp
                     
@@ -213,9 +215,13 @@
                       <tr>
                         <td scope="col">CBC Details</td>
                         <td scope="col">
-                          @foreach($cbc_values as $val)
-                            {!! $val . "<br><hr>" !!}
-                          @endforeach
+                        <?php
+                          foreach($cbc_values as $val){
+                            $counter++;
+                            echo $val . "<br>";
+                            echo $totalValues != $counter ? "<hr>" : "";
+                          }
+                        ?>
                         </td>
                       </tr>
                     </tbody>
@@ -228,6 +234,8 @@
                   @php
 
                     $other_values = explode("|", $log->others_details);
+                    $counter = 0;
+                    $totalValues = count($other_values);
 
                   @endphp
                     
@@ -241,9 +249,13 @@
                       <tr>
                         <td scope="col">Others</td>
                         <td scope="col">
-                          @foreach($other_values as $val)
-                            {!! $val . "<br><hr>" !!}
-                          @endforeach
+                          <?php
+                          foreach($other_values as $val){
+                            $counter++;
+                            echo $val . "<br>";
+                            echo $totalValues != $counter ? "<hr>" : "";
+                          }
+                        ?>
                         </td>
                       </tr>
                     </tbody>

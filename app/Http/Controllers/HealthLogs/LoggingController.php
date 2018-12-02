@@ -44,7 +44,79 @@ class LoggingController extends Controller
     public function store(StoreHealthLog $request)
     {
 
+        $this->checkIfAnyOneSectionIsFilled($request);
+
+        $this->saveLog($request);
         
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        $log = HealthLogs::find($id);
+
+        return view('health-logs.show', compact('log'));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        $log = HealthLogs::find($id);
+
+        return view('health-logs.edit', compact('log'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(StoreHealthLog $request, $id)
+    {
+        $this->checkIfAnyOneSectionIsFilled($request);
+
+        $this->updateLog($request, $id);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        $loggingResult = HealthLogs::destroy($id);
+
+        if($loggingResult){
+            $request->session()->flash('flash-msg', true);
+            $request->session()->flash('alert-warning', 'You just deleted a single log entry!');
+
+            return redirect('hl/logs');
+        }
+        else{
+            $request->session()->flash('flash-msg', true);
+            $request->session()->flash('alert-danger', 'Something went wrong, log deletion failed!');
+
+            return back()->withInput();
+        }
+    }
+
+    public function checkIfAnyOneSectionIsFilled($request)
+    {
+
         $bp = $request->input('bp');
         $hr = $request->input('hr');
         $wt = $request->input('wt');
@@ -64,6 +136,55 @@ class LoggingController extends Controller
 
         }
 
+        return;
+    } //End of checkIfAnyOneSectionIsFilled()
+
+    public function saveLog(StoreHealthLog $request)
+    {
+        //Generate Input Array
+        $input_array = $this->generateSubmittedFormData($request);
+
+        $loggingResult = HealthLogs::create($input_array);
+
+        if($loggingResult){
+            $request->session()->flash('flash-msg', true);
+            $request->session()->flash('alert-success', 'Log saved successfully in the database!');
+
+            return redirect('hl/logs');
+        }
+        else{
+            $request->session()->flash('flash-msg', true);
+            $request->session()->flash('alert-danger', 'Something went wrong, log saving failed!');
+
+            return back()->withInput();
+        }
+    } //End of saveLog()
+
+    public function updateLog(StoreHealthLog $request, $id)
+    {
+
+        $input_array = $this->generateSubmittedFormData($request);
+
+        $loggingResult = HealthLogs::where('id', $id)->update($input_array);
+
+        if($loggingResult){
+            $request->session()->flash('flash-msg', true);
+            $request->session()->flash('alert-success', 'Log saved successfully in the database!');
+
+            return redirect('hl/logs');
+        }
+        else{
+            $request->session()->flash('flash-msg', true);
+            $request->session()->flash('alert-danger', 'Something went wrong, log saving failed!');
+
+            return back()->withInput();
+        }
+
+
+    } //End of saveOrUpdateLog()
+
+    public function generateSubmittedFormData($request)
+    {
 
         //Generate Input Array
         $input_array = [
@@ -128,67 +249,7 @@ class LoggingController extends Controller
             $input_array['comments_details'] = $request->comments_details;
         }
 
-        $loggingResult = HealthLogs::create($input_array);
-
-        if($loggingResult){
-            $request->session()->flash('flash-msg', true);
-            $request->session()->flash('alert-success', 'Log saved successfully in the database!');
-
-            return redirect('hl/logs');
-        }
-        else{
-            $request->session()->flash('flash-msg', true);
-            $request->session()->flash('alert-danger', 'Something went wrong, log saving failed!');
-
-            return back()->withInput();
-        }
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        $log = HealthLogs::find($id);
-
-        return view('health-logs.show', compact('log'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        dd("Hellow from delete a record!");
-    }
+        return $input_array;
+    } //End of generateSubmittedFormData()
 
 }
