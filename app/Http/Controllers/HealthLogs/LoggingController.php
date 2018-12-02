@@ -101,7 +101,7 @@ class LoggingController extends Controller
         //If BS Exists
         if ($request->has('bs')) {
             $input_array['bs'] = 1;
-            $input_array['lp_details'] = $request->bs_rbs."|".$request->bs_fbs."|".$request->bs_abf;
+            $input_array['bs_details'] = $request->bs_rbs."|".$request->bs_fbs."|".$request->bs_abf;
         }
 
         //If Creatinine Exists

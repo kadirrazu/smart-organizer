@@ -44,12 +44,6 @@
             @include('global.flashes')
 
             <div class="clearfix">
-
-              @foreach($all_logs as $log)
-
-                {!! $log->id !!}
-
-              @endforeach
               
               @if($all_logs->count() > 0)
 
