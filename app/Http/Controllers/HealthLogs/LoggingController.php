@@ -46,7 +46,23 @@ class LoggingController extends Controller
 
         $this->checkIfAnyOneSectionIsFilled($request);
 
-        $this->saveLog($request);
+        //Generate Input Array
+        $input_array = $this->generateSubmittedFormData($request);
+
+        $loggingResult = HealthLogs::create($input_array);
+
+        if($loggingResult){
+            $request->session()->flash('flash-msg', true);
+            $request->session()->flash('alert-success', 'Log saved successfully in the database!');
+
+            return redirect('hl/logs');
+        }
+        else{
+            $request->session()->flash('flash-msg', true);
+            $request->session()->flash('alert-danger', 'Something went wrong, log save failed!');
+
+            return back()->withInput();
+        }
         
     }
 
@@ -87,7 +103,22 @@ class LoggingController extends Controller
     {
         $this->checkIfAnyOneSectionIsFilled($request);
 
-        $this->updateLog($request, $id);
+        $input_array = $this->generateSubmittedFormData($request);
+
+        $loggingResult = HealthLogs::where('id', $id)->update($input_array);
+
+        if($loggingResult){
+            $request->session()->flash('flash-msg', true);
+            $request->session()->flash('alert-success', 'Log updated successfully in the database!');
+
+            return redirect('hl/logs');
+        }
+        else{
+            $request->session()->flash('flash-msg', true);
+            $request->session()->flash('alert-danger', 'Something went wrong, log update failed!');
+
+            return back()->withInput();
+        }
     }
 
     /**
@@ -96,8 +127,9 @@ class LoggingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
+
         $loggingResult = HealthLogs::destroy($id);
 
         if($loggingResult){
@@ -139,49 +171,6 @@ class LoggingController extends Controller
         return;
     } //End of checkIfAnyOneSectionIsFilled()
 
-    public function saveLog(StoreHealthLog $request)
-    {
-        //Generate Input Array
-        $input_array = $this->generateSubmittedFormData($request);
-
-        $loggingResult = HealthLogs::create($input_array);
-
-        if($loggingResult){
-            $request->session()->flash('flash-msg', true);
-            $request->session()->flash('alert-success', 'Log saved successfully in the database!');
-
-            return redirect('hl/logs');
-        }
-        else{
-            $request->session()->flash('flash-msg', true);
-            $request->session()->flash('alert-danger', 'Something went wrong, log saving failed!');
-
-            return back()->withInput();
-        }
-    } //End of saveLog()
-
-    public function updateLog(StoreHealthLog $request, $id)
-    {
-
-        $input_array = $this->generateSubmittedFormData($request);
-
-        $loggingResult = HealthLogs::where('id', $id)->update($input_array);
-
-        if($loggingResult){
-            $request->session()->flash('flash-msg', true);
-            $request->session()->flash('alert-success', 'Log saved successfully in the database!');
-
-            return redirect('hl/logs');
-        }
-        else{
-            $request->session()->flash('flash-msg', true);
-            $request->session()->flash('alert-danger', 'Something went wrong, log saving failed!');
-
-            return back()->withInput();
-        }
-
-
-    } //End of saveOrUpdateLog()
 
     public function generateSubmittedFormData($request)
     {

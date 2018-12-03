@@ -27,6 +27,10 @@
           Edit this Log
         </a>
 
+        <a href="{{ url('hl/logs/') }}" class="btn btn-gradient-primary mr-2">
+          Back to Log Index
+        </a>
+
     </div>
   </div>
 
@@ -296,6 +300,10 @@
         
         <a href="{{ url('hl/logs/'.$log->id.'/edit') }}" class="btn btn-gradient-primary mr-2">
           Edit this Log
+        </a>
+
+        <a href="{{ url('hl/logs/') }}" class="btn btn-gradient-primary mr-2">
+          Back to Log Index
         </a>
 
     </div>
