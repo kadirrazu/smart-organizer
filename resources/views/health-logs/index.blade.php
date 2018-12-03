@@ -147,7 +147,10 @@
   jQuery(document).ready(function($) {
 
     $('#dt-table').DataTable({
-      ordering:  false
+      "order": [[0, false]],
+      "columnDefs": [
+          { "targets": [0,4,5,6,7,8], "orderable": false }
+      ]
     });
 
     $('.btn-delete-record').on('click', function(e){

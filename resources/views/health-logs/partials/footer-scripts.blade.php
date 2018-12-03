@@ -7,8 +7,10 @@
 <script src="{!! asset('theme/js/misc.js') !!}"></script>
 <!-- endinject -->
 
-<!-- Custom js for this page-->
-<script src="{!! asset('js/dashboard.js') !!}"></script>
-<!-- End custom js for this page-->
+<script>
+	jQuery(document).ready(function($){
+		$('.flash-message').delay(5000).slideUp();
+	});
+</script>
 
 @yield('script')

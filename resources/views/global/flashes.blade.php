@@ -28,14 +28,6 @@
   	</div> 
   	
   	<!-- end .flash-message -->
-  	@section('script')
-		<script type="text/javascript">
-			$(document).ready(function()
-			{
-				$('.flash-message').delay(5000).slideUp();
-			});
-		</script>
-	@stop
 
 @endif
 

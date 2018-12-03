@@ -17,8 +17,6 @@ class LoggingController extends Controller
      */
     public function index()
     {
-        
-        //$all_logs = HealthLogs::all();
 
         $all_logs = HealthLogs::all()->sortByDesc('id');
 
@@ -44,7 +42,14 @@ class LoggingController extends Controller
     public function store(StoreHealthLog $request)
     {
 
-        $this->checkIfAnyOneSectionIsFilled($request);
+        $sectionFilled = $this->checkIfAnyOneSectionIsFilled($request);
+
+        if(!$sectionFilled){
+            $request->session()->flash('flash-msg', true);
+            $request->session()->flash('alert-danger', 'You provided nothing to store as a log!');
+
+            return back()->withInput();
+        }
 
         //Generate Input Array
         $input_array = $this->generateSubmittedFormData($request);
@@ -101,7 +106,14 @@ class LoggingController extends Controller
      */
     public function update(StoreHealthLog $request, $id)
     {
-        $this->checkIfAnyOneSectionIsFilled($request);
+        $sectionFilled = $this->checkIfAnyOneSectionIsFilled($request);
+
+        if(!$sectionFilled){
+            $request->session()->flash('flash-msg', true);
+            $request->session()->flash('alert-danger', 'You provided nothing to store as a log!');
+
+            return back()->withInput();
+        }
 
         $input_array = $this->generateSubmittedFormData($request);
 
@@ -134,7 +146,7 @@ class LoggingController extends Controller
 
         if($loggingResult){
             $request->session()->flash('flash-msg', true);
-            $request->session()->flash('alert-warning', 'You just deleted a single log entry!');
+            $request->session()->flash('alert-success', 'You just deleted a single log entry!');
 
             return redirect('hl/logs');
         }
@@ -161,14 +173,14 @@ class LoggingController extends Controller
         if($bp == null && $hr == null && $wt == null && $lp == null && $creatinine == null && $cbc == null && $others == null)
         {
 
-            $request->session()->flash('flash-msg', true);
-            $request->session()->flash('alert-danger', 'You provided nothing to store as a log!');
-
-            return back()->withInput();
+            return false;
 
         }
+        else
+        {
+            return true;
+        }
 
-        return;
     } //End of checkIfAnyOneSectionIsFilled()
 
 

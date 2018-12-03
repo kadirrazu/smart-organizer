@@ -50,10 +50,10 @@
                     </thead>
                     <tbody>
                       <tr>
-                        <td scope="row">Date</td>
-                        <td>{{ date_format( new DateTime($log->log_date), "d/m/Y") }}</td>
-                        <td>Time</td>
-                        <td>{{ date_format( new DateTime($log->log_time), "h:i:s A") }}</td>
+                        <td scope="row" class="w25">Date</td>
+                        <td class="w25 align-c value">{{ date_format( new DateTime($log->log_date), "d/m/Y") }}</td>
+                        <td class="w25">Time</td>
+                        <td class="w25 align-c value">{{ date_format( new DateTime($log->log_time), "h:i:s A") }}</td>
                       </tr>
                     </tbody>
                   </table>
@@ -68,14 +68,14 @@
                     </thead>
                     <tbody>
                       <tr>
-                        <td scope="col">Measurement</td>
-                        <td colspan="3">{{ $log->sys ." / ". $log->dia }}</td>
+                        <td scope="col" class="w25">Measurement</td>
+                        <td colspan="3" class="w75 align-c value">{{ $log->sys ." / ". $log->dia }}</td>
                       </tr>
                       <tr>
-                        <td scope="row">Systolic</td>
-                        <td>{{ $log->sys }}</td>
-                        <td>Diastolic</td>
-                        <td>{{ $log->dia }}</td>
+                        <td scope="row" class="w25">Systolic</td>
+                        <td class="w25 align-c value">{{ $log->sys }}</td>
+                        <td class="w25">Diastolic</td>
+                        <td class="w25 align-c value">{{ $log->dia }}</td>
                       </tr>
                     </tbody>
                   </table>
@@ -92,8 +92,8 @@
                     </thead>
                     <tbody>
                       <tr>
-                        <td scope="col">Heart Rate / Pulse</td>
-                        <td scope="col" colspan="2">{{ $log->h_rate }}</td>
+                        <td scope="col" class="w25">Heart Rate / Pulse</td>
+                        <td scope="col" class="w75 align-c value">{{ $log->h_rate }}</td>
                       </tr>
                     </tbody>
                   </table>
@@ -110,8 +110,8 @@
                     </thead>
                     <tbody>
                       <tr>
-                        <td scope="col">Weight (in KG)</td>
-                        <td scope="col" colspan="2">{{ $log->weight }}</td>
+                        <td scope="col" class="w25">Weight (in KG)</td>
+                        <td scope="col" class="w75 align-c value">{{ $log->weight }}</td>
                       </tr>
                     </tbody>
                   </table>
@@ -134,16 +134,24 @@
                     </thead>
                     <tbody>
                       <tr>
-                        <td scope="row">Cholesterol (Total)</td>
-                        <td>{{ isset($lp_values[0]) ? $lp_values[0] : '-' }}</td>
-                        <td>HDL - Cholesterol</td>
-                        <td>{{ isset($lp_values[1]) ? $lp_values[1] : '-' }}</td>
+                        <td scope="row" class="w25">Cholesterol (Total)</td>
+                        <td class="w25 align-c value">
+                          {{ isset($lp_values[0]) ? $lp_values[0] : '-' }}
+                        </td>
+                        <td class="w25">HDL - Cholesterol</td>
+                        <td class="w25 align-c value">
+                          {{ isset($lp_values[1]) ? $lp_values[1] : '-' }}
+                        </td>
                       </tr>
                       <tr>
-                        <td scope="row">LDL - Cholesterol</td>
-                        <td>{{ isset($lp_values[2]) ? $lp_values[2] : '-' }}</td>
-                        <td>Triglycerides</td>
-                        <td>{{ isset($lp_values[3]) ? $lp_values[3] : '-' }}</td>
+                        <td scope="row" class="w25">LDL - Cholesterol</td>
+                        <td class="w25 align-c value">
+                          {{ isset($lp_values[2]) ? $lp_values[2] : '-' }}
+                        </td>
+                        <td class="w25">Triglycerides</td>
+                        <td class="w25 align-c value">
+                          {{ isset($lp_values[3]) ? $lp_values[3] : '-' }}
+                        </td>
                       </tr>
                     </tbody>
                   </table>
@@ -162,17 +170,25 @@
                   <table class="table table-bordered">
                     <thead class="thead-light">
                       <tr>
-                        <th scope="col" colspan="6">Blood Sugar / Glucose</th>
+                        <th scope="col" colspan="4">Blood Sugar / Glucose</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr>
-                        <td scope="row">RBS</td>
-                        <td>{{ (isset($bs_values[0]) && $bs_values[0] != '') ? $bs_values[0] : '-' }}</td>
-                        <td>FBS</td>
-                        <td>{{ (isset($bs_values[1]) && $bs_values[1] != '') ? $bs_values[1] : '-' }}</td>
-                        <td>BS - 2H ABF</td>
-                        <td>{{ (isset($bs_values[2]) && $bs_values[2] != '') ? $bs_values[2] : '-' }}</td>
+                        <td scope="row" class="w25">RBS</td>
+                        <td class="w25 align-c value">
+                          {{ (isset($bs_values[0]) && $bs_values[0] != '') ? $bs_values[0] : '-' }}
+                        </td>
+                        <td class="w25">FBS</td>
+                        <td class="w25 align-c value">
+                          {{ (isset($bs_values[1]) && $bs_values[1] != '') ? $bs_values[1] : '-' }}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="w25">BS - 2H ABF</td>
+                        <td class="w75 align-c value" colspan="3">
+                          {{ (isset($bs_values[2]) && $bs_values[2] != '') ? $bs_values[2] : '-' }}
+                        </td>
                       </tr>
                     </tbody>
                   </table>
@@ -190,8 +206,10 @@
                     </thead>
                     <tbody>
                       <tr>
-                        <td scope="col">Creatinine</td>
-                        <td scope="col" colspan="2">{{ $log->creatinine_details }}</td>
+                        <td scope="col" class="w25">Creatinine</td>
+                        <td scope="col"  class="w75 align-c value">
+                            {{ $log->creatinine_details }}
+                        </td>
                       </tr>
                     </tbody>
                   </table>
@@ -217,8 +235,8 @@
                     </thead>
                     <tbody>
                       <tr>
-                        <td scope="col">CBC Details</td>
-                        <td scope="col">
+                        <td scope="col" class="w25">CBC Details</td>
+                        <td scope="col" class="w75 align-l">
                         <?php
                           foreach($cbc_values as $val){
                             $counter++;
@@ -251,8 +269,8 @@
                     </thead>
                     <tbody>
                       <tr>
-                        <td scope="col">Others</td>
-                        <td scope="col">
+                        <td scope="col" class="w25">Others</td>
+                        <td scope="col" class="w75 align-l">
                           <?php
                           foreach($other_values as $val){
                             $counter++;
@@ -278,8 +296,8 @@
                     </thead>
                     <tbody>
                       <tr>
-                        <td scope="col">Comments</td>
-                        <td scope="col" colspan="2">{{ $log->comments_details }}</td>
+                        <td scope="col" class="w25">Comments</td>
+                        <td scope="col"  class="w75 align-l">{{ $log->comments_details }}</td>
                       </tr>
                     </tbody>
                   </table>

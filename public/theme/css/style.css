@@ -21006,3 +21006,33 @@ button.btn-delete-record{
 .card-description.card-description-custom{
   margin: 1rem 0;
 }
+
+.value{
+  font-weight: bold;
+}
+
+.w25{
+  width: 25%;
+}
+
+.w50{
+  width: 50%;
+}
+
+.w75{
+  width: 75%;
+}
+
+.align-c{
+  text-align: center;
+}
+
+.align-l{
+  text-align: left;
+}
+
+
+
+.align-r{
+  text-align: right;
+}
