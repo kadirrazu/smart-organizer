@@ -203,8 +203,86 @@
         <div class="card">
           <div class="card-body">
             <div class="clearfix">
-              <h4 class="card-title float-left">This Week</h4>
-              <div id="visit-sale-chart-legend" class="rounded-legend legend-horizontal legend-top-right float-right"></div>                                     
+              <h4 class="card-title float-left">Last 10 Logs</h4>
+
+                <div class="clearfix">
+                  
+                  @if($all_logs->count() > 0)
+
+                    <div class="resource-table">
+
+                      <table id="dt-table" class="table table-striped table-bordered text-center dt-table" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th class="text-left">Date &amp; Time</th>
+                                <th>BP</th>
+                                <th>HR</th>
+                                <th>Weight</th>
+                                <th>LP</th>
+                                <th>Sugar</th>
+                                <th>Creatinine</th>
+                                <th>CBC</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                          @foreach($all_logs as $log)
+
+                            <tr>
+                                <td class="text-left">
+                                  {{ $log->log_date }} @ {{ $log->log_time }}
+                                </td>
+                                <td>{{ $log->bp == 1 ? $log->sys .' / '. $log->dia : '-' }}</td>
+                                <td>{{ $log->hr == 1 ? $log->h_rate : '-' }}</td>
+                                <td>{{ $log->wt == 1 ? $log->weight : '-' }}</td>
+                                <td>
+                                  {!! $log->lp == 1 ? '<i class="mdi mdi-checkbox-marked-outline text-success"></i>' : '<i class="mdi mdi-close-box-outline text-danger"></i>' !!}
+                                </td>
+                                <td>
+                                  {!! $log->bs == 1 ? '<i class="mdi mdi-checkbox-marked-outline text-success"></i>' : '<i class="mdi mdi-close-box-outline text-danger"></i>' !!}
+                                </td>
+                                <td>
+                                  {!! $log->creatinine == 1 ? '<i class="mdi mdi-checkbox-marked-outline text-success"></i>' : '<i class="mdi mdi-close-box-outline text-danger"></i>' !!}
+                                </td>
+                                <td>
+                                  {!! $log->cbc == 1 ? '<i class="mdi mdi-checkbox-marked-outline text-success"></i>' : '<i class="mdi mdi-close-box-outline text-danger"></i>' !!}
+                                </td>
+                                <td>
+                                  <a href="{{ url('hl/logs/'.$log->id) }}" class="btn btn-default tbl-action-btn" title="View">
+                                    <i class="mdi mdi-eye"></i>
+                                  </a>
+                                </td>
+                            </tr>
+
+                          @endforeach
+
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th class="text-left">Date &amp; Time</th>
+                                <th>BP</th>
+                                <th>HR</th>
+                                <th>Weight</th>
+                                <th>LP</th>
+                                <th>Sugar</th>
+                                <th>Creatinine</th>
+                                <th>CBC</th>
+                                <th>Actions</th>
+                            </tr>
+                        </tfoot>
+                      </table>
+
+                    </div>
+
+                  @else
+
+                    <div>No records found!</div>
+
+                  @endif
+
+              </div>
+
             </div>
             <canvas id="visit-sale-chart" class="mt-4"></canvas>
           </div>

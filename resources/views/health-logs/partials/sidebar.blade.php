@@ -51,17 +51,12 @@
     <div class="collapse" id="ui-menu-income">
       <ul class="nav flex-column sub-menu">
         <li class="nav-item"> 
-      		<a class="nav-link" href="pages/ui-features/buttons.html">
-      			BP Chart
-      		</a>
-      	</li>
-      	<li class="nav-item"> 
-      		<a class="nav-link" href="pages/ui-features/buttons.html">
-      			Weight Chart
+      		<a class="nav-link" href="{!! url('hl/bp-wt-report-view') !!}">
+      			BP &amp; Weight Chart
       		</a>
       	</li>
         <li class="nav-item"> 
-          <a class="nav-link" href="pages/ui-features/buttons.html">
+          <a class="nav-link" href="{!! url('hl/custom-report-view') !!}">
             Custom Report
           </a>
         </li>

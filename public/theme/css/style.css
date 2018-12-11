@@ -21039,3 +21039,7 @@ button.btn-delete-record{
   width: 30px !important;
   height: 30px !important;
 }
+
+.form-control{
+  height: auto;
+}
