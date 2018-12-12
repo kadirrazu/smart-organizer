@@ -44,6 +44,7 @@
           <div class="card-body">
 
             @include('global.flashes')
+
             @include('global.errors')
 
             <div class="clearfix">
@@ -61,7 +62,7 @@
                           <i class="mdi mdi-calendar"></i>
                         </div>
                       </div>
-                      <input type="text" class="form-control dateSelector" id="startDateSelector" placeholder="Start Date" name="start-date">
+                      <input type="text" class="form-control dateSelector" id="startDateSelector" placeholder="Start Date" name="start-date" autocomplete="off" value="{{ old('start-date') }}">
                     </div>
                     <label class="sr-only" for="endDateSelector">
                       End Date
@@ -72,7 +73,7 @@
                           <i class="mdi mdi-calendar"></i>
                         </div>
                       </div>
-                      <input type="text" class="form-control dateSelector" id="endDateSelector" placeholder="End Date" name="end-date">
+                      <input type="text" class="form-control dateSelector" id="endDateSelector" placeholder="End Date" name="end-date" autocomplete="off" value="{{ old('end-date') }}">
                     </div>
                     <button type="submit" class="btn btn-gradient-primary mb-2">
                       Generate
