@@ -2,8 +2,6 @@
 
 @section('style')
 
-<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
-
 <link href="https://cdnjs.cloudflare.com/ajax/libs/gijgo/1.9.11/combined/css/gijgo.min.css" rel="stylesheet" type="text/css" />
 
 @stop

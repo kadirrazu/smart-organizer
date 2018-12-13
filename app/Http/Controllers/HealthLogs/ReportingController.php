@@ -18,7 +18,7 @@ class ReportingController extends Controller
 
     public function custom_view_load()
     {
-    	return view('health-logs.custom_show');
+    	return view('health-logs.custom-show');
     }
 
     public function process_bp_wt_report(Request $request)
