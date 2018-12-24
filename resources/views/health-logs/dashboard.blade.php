@@ -20,6 +20,10 @@
       </nav>
     </div>
 
+    <!-- First Check if there exists any record -->
+
+    @if( \App\HealthLogs::all()->count() > 0 )
+
     <div class="row">
 
       <div class="col-md-4 stretch-card grid-margin">
@@ -36,14 +40,14 @@
               </tr>
               <tr>
                 <td>BP Entries</td>
-                <td>{{ \App\HealthLogs::where('bp',1)->get()->count() ?: ''  }}</td>
+                <td>{{ \App\HealthLogs::where('bp',1)->get()->count() ?: '-'  }}</td>
               </tr>
               <tr>
                 <td>Pulse/HR</td>
-                <td>{{ \App\HealthLogs::where('hr',1)->get()->count() ?: ''  }}</td>
+                <td>{{ \App\HealthLogs::where('hr',1)->get()->count() ?: '-'  }}</td>
               <tr>
                 <td>Weight</td>
-                <td>{{ \App\HealthLogs::where('wt',1)->get()->count() ?: '' }}</td>
+                <td>{{ \App\HealthLogs::where('wt',1)->get()->count() ?: '-' }}</td>
               </tr>
             </table>
           </div>
@@ -179,18 +183,18 @@
             <table class="table">
               <tr>
                 <td>Lipid Profile</td>
-                <td>{{ \App\HealthLogs::where('lp',1)->get()->count() ?: ''  }}</td>
+                <td>{{ \App\HealthLogs::where('lp',1)->get()->count() ?: '-'  }}</td>
               </tr>
               <tr>
                 <td>Blood Sugar</td>
-                <td>{{ \App\HealthLogs::where('bs',1)->get()->count() ?: ''  }}</td>
+                <td>{{ \App\HealthLogs::where('bs',1)->get()->count() ?: '-'  }}</td>
               </tr>
               <tr>
                 <td>Creatinine</td>
-                <td>{{ \App\HealthLogs::where('creatinine',1)->get()->count() ?: ''  }}</td>
+                <td>{{ \App\HealthLogs::where('creatinine',1)->get()->count() ?: '-'  }}</td>
               <tr>
                 <td>CBC</td>
-                <td>{{ \App\HealthLogs::where('cbc',1)->get()->count() ?: '' }}</td>
+                <td>{{ \App\HealthLogs::where('cbc',1)->get()->count() ?: '-' }}</td>
               </tr>
             </table>
           </div>
@@ -284,11 +288,24 @@
               </div>
 
             </div>
-            <canvas id="visit-sale-chart" class="mt-4"></canvas>
+
           </div>
         </div>
       </div>
     </div>
+
+    @else
+
+      <div class="row">
+        <div class="col-md-12">
+          <div class="text-info">
+            No entry exists! Please add some record first.
+          </div>
+        </div>
+      </div>
+
+    @endif
+    <!-- /If there exists any record -->
 
   </div>
   <!-- content-wrapper ends -->

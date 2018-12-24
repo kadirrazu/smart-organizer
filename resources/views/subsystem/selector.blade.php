@@ -52,14 +52,18 @@
                 <div class="mt-3">
                   <a class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn" href="{!! url('mm/dashboard') !!}">Movie Manager</a>
                 </div>
+
+                <div class="mt-3">
+                  <a class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn" href="{!! url('pd/dashboard') !!}">Personal Diary</a>
+                </div>
 				
 				        <div class="my-2 text-center mt-20">
                   <a href="{!! url('logout') !!}" class="btn btn-sm auth-link text-black">Logout</a>
                 </div>
 			  
-			  <div class="login-footer-text">
-				<span> Hand-crafted & made with <i class="mdi mdi-heart text-danger"></i> by <a href="https://www.kadirrazu.info/" target="_blank">Kadir</a>
-			  </div>
+        			  <div class="login-footer-text">
+        				  <span> Hand-crafted & made with <i class="mdi mdi-heart text-danger"></i> by <a href="https://www.kadirrazu.info/" target="_blank">Kadir</a></span>
+        			  </div>
 			  
             </div>
           </div>

@@ -21043,3 +21043,7 @@ button.btn-delete-record{
 .form-control{
   height: auto;
 }
+
+.hidden{
+  display: none;
+}

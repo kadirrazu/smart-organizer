@@ -58,17 +58,17 @@
                     </div>
 
                     <div class="row">
-                      <div class="col-md-4">
+                      <div class="col-md-3">
                         <div class="form-group">
-                          <select class="form-control form-control-lg" id="exampleFormControlSelect1">
+                          <select class="form-control form-control-lg" id="dateRangeSelector">
                             <option value="">Select Range</option>
                             <option value="all-date">All</option>
                             <option value="custom-date">Custom Date</option>
                           </select>
                         </div>
                       </div>
-                      <div class="col-md-8">
-                        <div class="row">
+                      <div class="col-md-9">
+                        <div class="row" id="range-row">
                           <div class="col-md-6">
                             <div class="form-group">
                               <div class="input-group">
@@ -251,6 +251,22 @@
         uiLibrary: 'bootstrap4',
         format: 'dd-mm-yyyy',
         showRightIcon: false
+    });
+
+    $('#range-row').addClass('hidden');
+
+    $("#dateRangeSelector").on('change', function(){
+      
+      var selected = this.value;
+
+      if( selected == "custom-date" ){
+        $('#range-row').removeClass('hidden');
+      }
+      else
+      {
+        $('#range-row').addClass('hidden');
+      }
+
     });
 
   });
