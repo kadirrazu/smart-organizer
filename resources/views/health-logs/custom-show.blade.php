@@ -58,46 +58,36 @@
                     </div>
 
                     <div class="row">
+
                       <div class="col-md-3">
                         <div class="form-group">
-                          <select class="form-control form-control-lg" id="dateRangeSelector">
+                          <select class="form-control form-control-lg" id="dateRangeSelector" name="date-range">
                             <option value="">Select Range</option>
                             <option value="all-date">All</option>
                             <option value="one-month">Last 1 Month</option>
                             <option value="three-month">Last 3 Month</option>
                             <option value="custom-date">Custom Date</option>
+                            <option value="last-n">Last N Items</option>
                           </select>
                         </div>
                       </div>
-                      <div class="col-md-9">
+
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <select class="form-control form-control-lg" id="dateRangeSelector" name="sort-format">
+                            <option value="sort-asc">Ascending</option>
+                            <option value="sort-desc">Descending</option>
+                          </select>
+                        </div>
+                      </div>
+
+                      <div class="col-md-6">
                         <div class="row" id="range-row">
                           <div class="col-md-6">
-                            <div class="form-group">
-                              <div class="input-group">
-                                <div class="input-group-prepend">
-                                  <span class="input-group-text bg-gradient-primary text-white">
-                                    <i class="mdi mdi-calendar"></i>
-                                  </span>
-                                </div>
-                                <div>
-                                  <input type="text" class="form-control dateSelector" id="startDateSelector" placeholder="Start Date" name="start-date" autocomplete="off" value="{{ old('start-date') }}">
-                                </div>
-                              </div>
-                           </div>
+                            <input type="text" class="form-control dateSelector" id="startDateSelector" placeholder="Select Start Date" name="start-date" autocomplete="off" value="{{ old('start-date') }}">
                           </div>
                           <div class="col-md-6">
-                            <div class="form-group">
-                              <div class="input-group">
-                                <div class="input-group-prepend">
-                                  <span class="input-group-text bg-gradient-primary text-white">
-                                    <i class="mdi mdi-calendar"></i>
-                                  </span>
-                                </div>
-                                <div>
-                                  <input type="text" class="form-control dateSelector" id="endDateSelector" placeholder="End Date" name="end-date" autocomplete="off" value="{{ old('end-date') }}">
-                                </div>
-                              </div>
-                           </div>
+                            <input type="text" class="form-control dateSelector" id="endDateSelector" placeholder="Select End Date" name="end-date" autocomplete="off" value="{{ old('end-date') }}">
                           </div>
                         </div>
                         <!--/Date Range Row - Inner-->
@@ -105,6 +95,12 @@
 
                     </div>
                     <!--/Duration Row-->
+
+                    <div class="row" id="limit-row" class="hidden">
+                      <div class="col-md-3">
+                        <input type="number" class="form-control" id="lastNInput" placeholder="Limit" name="limit" autocomplete="off" value="{{ old('limit') }}">
+                      </div>
+                    </div>
 
                     <div class="row">
                       <p class="card-description">
@@ -166,7 +162,7 @@
 
                           <div class="form-check">
                             <label class="form-check-label">
-                              <input type="checkbox" class="form-check-input" name="e-bp" value="1">
+                              <input type="checkbox" class="form-check-input" name="e-bs" value="1">
                               Blood Sugar
                               <i class="input-helper"></i>
                             </label>
@@ -256,6 +252,7 @@
     });
 
     $('#range-row').addClass('hidden');
+    $('#limit-row').addClass('hidden');
 
     $("#dateRangeSelector").on('change', function(){
       
@@ -263,10 +260,16 @@
 
       if( selected == "custom-date" ){
         $('#range-row').removeClass('hidden');
+        $('#limit-row').addClass('hidden');
+      }
+      else if( selected == "last-n" ){
+        $('#limit-row').removeClass('hidden');
+        $('#range-row').addClass('hidden');
       }
       else
       {
         $('#range-row').addClass('hidden');
+        $('#limit-row').addClass('hidden');
       }
 
     });
@@ -276,6 +279,7 @@
       var selectedDate = $("#dateRangeSelector").find(":selected").val();
       var startDate = $("#startDateSelector").val();
       var endDate = $("#endDateSelector").val();
+      var limit = $("#lastNInput").val();
 
       if( selectedDate == "" ){
         alert("Please provide your date range first.");
@@ -285,6 +289,12 @@
 
       if( selectedDate == "custom-date" && (startDate == "" || endDate == "")){
         alert("You selected a custom range. But start or end date is still empty!");
+        e.preventDefault();
+        return;
+      }
+
+      if( selectedDate == "last-n" && limit == "" ){
+        alert("Limit must be filled up when Last-N is the range!");
         e.preventDefault();
         return;
       }

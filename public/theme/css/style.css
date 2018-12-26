@@ -21047,3 +21047,7 @@ button.btn-delete-record{
 .hidden{
   display: none;
 }
+
+#limit-row{
+  margin-bottom: 25px;
+}
