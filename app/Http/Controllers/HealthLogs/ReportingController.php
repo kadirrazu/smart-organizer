@@ -64,5 +64,10 @@ class ReportingController extends Controller
 
             return back()->withInput();
 		}
-    }
+    } //End of BP-WT Report
+
+    public function process_custom_report(Request $request)
+    {
+
+    } //End of Custom Report
 }

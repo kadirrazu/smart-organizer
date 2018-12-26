@@ -47,7 +47,7 @@
 
             <div class="clearfix">
 
-              <form action="{{ url('hl/process-bp-wt-report') }}" method="POST">
+              <form action="{{ url('hl/process-custom-report') }}" method="POST">
 
                     @csrf
 
@@ -63,6 +63,8 @@
                           <select class="form-control form-control-lg" id="dateRangeSelector">
                             <option value="">Select Range</option>
                             <option value="all-date">All</option>
+                            <option value="one-month">Last 1 Month</option>
+                            <option value="three-month">Last 3 Month</option>
                             <option value="custom-date">Custom Date</option>
                           </select>
                         </div>
@@ -110,7 +112,7 @@
                       </p>
                     </div>
 
-                    <div class="row">
+                    <div class="row" id="checkboxContainer">
 
                       <div class="col-md-4">
 
@@ -213,7 +215,7 @@
                     
                     <div class="row">
                       <div class="col-md-12">
-                        <button type="submit" class="btn btn-gradient-primary mb-2">
+                        <button type="submit" class="btn btn-gradient-primary mb-2" id="generateBtn">
                           Generate
                         </button>
 
@@ -265,6 +267,34 @@
       else
       {
         $('#range-row').addClass('hidden');
+      }
+
+    });
+
+    $("#generateBtn").on("click", function(e){
+
+      var selectedDate = $("#dateRangeSelector").find(":selected").val();
+      var startDate = $("#startDateSelector").val();
+      var endDate = $("#endDateSelector").val();
+
+      if( selectedDate == "" ){
+        alert("Please provide your date range first.");
+        e.preventDefault();
+        return;
+      }
+
+      if( selectedDate == "custom-date" && (startDate == "" || endDate == "")){
+        alert("You selected a custom range. But start or end date is still empty!");
+        e.preventDefault();
+        return;
+      }
+
+      var numberOfChecked = $('#checkboxContainer input:checkbox:checked').length;
+
+      if( numberOfChecked == 0 ){
+        alert("You doesn't checked any report item!");
+        e.preventDefault();
+        return;
       }
 
     });
