@@ -69,24 +69,43 @@ class ReportingController extends Controller
     public function process_custom_report(Request $request)
     {
 
+    	//Check if limit is provided, it should be numeric
     	$request->validate([
 		    'limit' => 'nullable|numeric'
 		]);
 
+    	//Grab necessary inputs
     	$dateRange = $request->input('date-range');
     	$inputStartDate = $request->input('start-date');
 		$inputEndDate = $request->input('end-date');
 		$limit = $request->input('limit');
 
-		//dd($request->input());
-
+		//Store reporting elements, pass it to view
 		$items = array();
 
+		//Validation for input date range, if applicable
+		if( $dateRange == "custom-date" && ( $inputStartDate == "" || $inputEndDate== "" ) )
+		{
+			$request->session()->flash('flash-msg', true);
+            $request->session()->flash('alert-warning', 'You want a custom range report, but you skipped start or end date field!');
+
+            return back()->withInput();
+		}
+
+		//Build the base query
 		$query = DB::table('health_logs');
 
+		//Build query according to the selected checkboxes
 		if ($request->has('e-all')) 
 		{
-		    
+		    $items['bp'] = true;
+		    $items['hr'] = true;
+		    $items['wt'] = true;
+		    $items['lp'] = true;
+		    $items['bs'] = true;
+		    $items['creatinine'] = true;
+		    $items['cbc'] = true;
+		    $items['others'] = true;
 		}
 		else
 		{
@@ -131,14 +150,44 @@ class ReportingController extends Controller
 			}
 		}
 
-		$startDate = ""; $endDate = "";
+		$items['comments'] = true;
 
-		if( ($request->has('start-date') && $request->has('start-date')) || $request->has('date-range') == "one-month" || $request->has('three-month') == "" ){
+		$formattedStartDate = ""; $formattedEndDate = "";
 
+		//Generate date range, pass it to query if require by the input conditon
+		if( $dateRange == "one-month" || $dateRange == "three-month" || $dateRange == "custom-date" )
+		{
+			//If reporting date has a custom range
+			if($dateRange == "custom-date" && ($request->has('start-date') && $request->has('end-date')))
+			{
+				$inputStartDate = $request->input('start-date');
+				$inputEndDate = $request->input('end-date');
+
+				$startDatePieces = explode('-', $inputStartDate);
+				$formattedStartDate = $startDatePieces[2] .'-'. $startDatePieces[1] .'-'. $startDatePieces[0];
+
+				$endDatePieces = explode('-', $inputEndDate);
+				$formattedEndDate = $endDatePieces[2] .'-'. $endDatePieces[1] .'-'. $endDatePieces[0];
+			}
+
+			//If reporting date is one month back
+			if( $dateRange == "one-month" )
+			{
+				$formattedStartDate = date('Y-m-d');
+				$formattedEndDate = date("Y-m-d",strtotime("-30 day"));
+			}
+
+			//If reporting date is three month back
+			if( $dateRange == "three-month" )
+			{
+				$formattedStartDate = date('Y-m-d');
+				$formattedEndDate = date("Y-m-d",strtotime("-90 day"));
+			}
+
+			$query->whereBetween('log_date', [$formattedStartDate, $formattedEndDate]);
 		}
 
-		$query->orWhere('comments', 1);
-
+		//Query last n-elements, if set. Also perform sorting.
 		if( $dateRange == "last-n"){
 			$query->orderBy('id', 'desc');
 			$query->take($limit);
@@ -153,19 +202,30 @@ class ReportingController extends Controller
 		}
 		
 
-		//$results = $query->get();
-		$results = $query->toSql();
+		$results = $query->get();
+		//$results = $query->toSql();
 
-		dd($results);
+    	
+		if($results->count() > 0 )
+		{
 
-    	if( $dateRange == "custom-date" && ( $inputStartDate == "" || $inputEndDate== "" ) )
+			$dateTimeStamp = date('d-m-Y_h-i_A');
+			$fileName = 'custom-report-'.$dateTimeStamp.'.pdf';
+
+			//return view('health-logs.reports.custom', compact('results', 'items'));
+
+			$pdf = PDF::loadView('health-logs.reports.custom', compact('results', 'items'));
+			return $pdf->download($fileName);
+
+			//return view('health-logs.reports.bp-wt', compact('results'));
+		}
+		else
 		{
 			$request->session()->flash('flash-msg', true);
-            $request->session()->flash('alert-warning', 'You want a custom range report, but you skipped start or end date field!');
+            $request->session()->flash('alert-danger', 'No result found according to your provided parameters!');
 
             return back()->withInput();
 		}
-
 
 
     } //End of Custom Report
