@@ -53,6 +53,8 @@ Route::group(['middleware' => ['auth']], function () {
 		    Route::get('bp-wt-report-view', 'ReportingController@bp_wt_view_load');
 		    Route::get('custom-report-view', 'ReportingController@custom_view_load');
 
+		    Route::get('logs/download/{id}', 'ReportingController@single_log_download');
+
 		    Route::post('process-bp-wt-report', 'ReportingController@process_bp_wt_report');
 		    Route::post('process-custom-report', 'ReportingController@process_custom_report');
 

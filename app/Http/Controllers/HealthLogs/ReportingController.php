@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Support\Facades\DB;
 
+use App\HealthLogs;
+
 use PDF;
 
 class ReportingController extends Controller
@@ -21,6 +23,19 @@ class ReportingController extends Controller
     	return view('health-logs.custom-show');
     }
 
+    public function single_log_download($id)
+    {
+    	$log = HealthLogs::findOrFail($id);
+
+        //return view('health-logs.reports.single', compact('log'));
+
+        $dateTimeStamp = date('d-m-Y_h-i_A');
+		$fileName = 'Single-Report-'.$dateTimeStamp.'.pdf';
+
+		$pdf = PDF::loadView('health-logs.reports.single', compact('log'));
+		return $pdf->download($fileName);
+    }
+
     public function process_bp_wt_report(Request $request)
     {
     	$request->validate([
@@ -29,7 +44,7 @@ class ReportingController extends Controller
 		]);
 
 		$dateTimeStamp = date('d-m-Y_h-i_A');
-		$fileName = 'bp-wt-report-'.$dateTimeStamp.'.pdf';
+		$fileName = 'BP-WT-Report-'.$dateTimeStamp.'.pdf';
 
 		$inputStartDate = $request->input('start-date');
 		$inputEndDate = $request->input('end-date');
@@ -106,6 +121,15 @@ class ReportingController extends Controller
 		    $items['creatinine'] = true;
 		    $items['cbc'] = true;
 		    $items['others'] = true;
+
+		    $query->orWhere('bp', 1);
+		    $query->orWhere('hr', 1);
+		    $query->orWhere('wt', 1);
+		    $query->orWhere('lp', 1);
+		    $query->orWhere('bs', 1);
+		    $query->orWhere('creatinine', 1);
+		    $query->orWhere('cbc', 1);
+		    $query->orWhere('others', 1);
 		}
 		else
 		{
@@ -210,14 +234,12 @@ class ReportingController extends Controller
 		{
 
 			$dateTimeStamp = date('d-m-Y_h-i_A');
-			$fileName = 'custom-report-'.$dateTimeStamp.'.pdf';
+			$fileName = 'Customized-Report-'.$dateTimeStamp.'.pdf';
 
 			//return view('health-logs.reports.custom', compact('results', 'items'));
 
 			$pdf = PDF::loadView('health-logs.reports.custom', compact('results', 'items'));
 			return $pdf->download($fileName);
-
-			//return view('health-logs.reports.bp-wt', compact('results'));
 		}
 		else
 		{

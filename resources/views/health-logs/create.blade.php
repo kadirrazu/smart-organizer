@@ -351,6 +351,9 @@
                           <label class="col-sm-3 col-form-label">CBC</label>
                           <div class="col-sm-9">
                             <textarea class="form-control" name="cbc_details" cols="30" rows="4">{{ old('cbc_details') }}</textarea>
+                            <p class="info">
+                              [ Separate Each Key Value pair with a PIPE. Separate Key and Value with '-'. For Example: WBC-5.4|RBC-7.3|ESR-12 ]
+                            </p>
                           </div>
                         </div>
                       </div>

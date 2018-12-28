@@ -106,6 +106,7 @@ class LoggingController extends Controller
      */
     public function update(StoreHealthLog $request, $id)
     {
+        //Check if at least one section is submitted
         $sectionFilled = $this->checkIfAnyOneSectionIsFilled($request);
 
         if(!$sectionFilled){

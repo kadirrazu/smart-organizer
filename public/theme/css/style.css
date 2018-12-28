@@ -21051,3 +21051,8 @@ button.btn-delete-record{
 #limit-row{
   margin-bottom: 25px;
 }
+
+p.info{
+  font-size: 12px;
+  font-style: italic;
+}
